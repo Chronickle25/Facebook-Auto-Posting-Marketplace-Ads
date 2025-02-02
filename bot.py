@@ -3,18 +3,18 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import time
-from time import sleep
 import tkinter as tk
 import keyboard
+from chromedriver_py import binary_path  # Importa la ruta del ejecutable de chromedriver-py
+import time as sleep
 
-chrome_options = webdriver.ChromeOptions() 
-prefs = {"profile.default_content_setting_values.notifications" : 2} 
-chrome_options.add_experimental_option("prefs",prefs) 
+# Configuración de opciones para Chrome
+chrome_options = webdriver.ChromeOptions()
+prefs = {"profile.default_content_setting_values.notifications": 2}
+chrome_options.add_experimental_option("prefs", prefs)
 
-# i have added chromium webdriver to PATH enviornment variable
-driver = webdriver.Chrome(chrome_options=chrome_options)
-
-driver = webdriver.Chrome(chrome_options=chrome_options,executable_path=r'C:\Users\israr\Desktop\chromedriver.exe')
+# Inicialización del WebDriver usando chromedriver-py
+driver = webdriver.Chrome(service=webdriver.ChromeService(binary_path), options=chrome_options)
 
 driver.maximize_window()
 def startPostingAds():
@@ -138,9 +138,9 @@ def submit():
     # root.quit()
     root.destroy()
     driver.get('https://www.facebook.com')
-    emailelement = driver.find_element_by_id('email')
+    emailelement = driver.find_element(By.ID, 'email')
     emailelement.send_keys(name)
-    passelement = driver.find_element_by_id('pass')
+    passelement = driver.find_element(By.ID, 'pass')
     passelement.send_keys(password)
     loginelement = driver.find_element_by_xpath("//button[@name='login']")
     loginelement.click()
